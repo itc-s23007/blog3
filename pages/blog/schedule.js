@@ -16,8 +16,6 @@ const getStaticProps = async () => {
     console.log(err)
   }
 
-  resPromise.then(res => console.log(res)).catch(err => console.log(err))
-
   return {
     props: {}
   }
