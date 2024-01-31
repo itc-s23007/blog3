@@ -14,7 +14,13 @@ import eyecatch from 'images/about.jpg'
 const About = () => {
   return (
     <Container>
-      <Meta pageTitle='アバウト' />
+      <Meta
+        pageTitle='アバウト'
+        pageDesc='About development activities'
+        pageImg={eyecatch.src}
+        pageImgW={eyecatch.src}
+        pageImgH={eyecatch.src}
+      />
       <Hero title='About' subtitle='About development activities' />
 
       <figure>
