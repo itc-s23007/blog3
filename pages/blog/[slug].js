@@ -13,7 +13,7 @@ import {
 import ConvertBody from 'components/convert-body'
 import PostCategories from 'components/post-categories'
 import Pagination from 'components/pagination'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import { getImageBuffer } from 'lib/getImageBuffer'
 import { getPlaiceholder } from 'plaiceholder'
 
@@ -98,7 +98,7 @@ const getStaticProps = async context => {
   const eyecatch = post.eyecatch ?? eyecatchLocal
   const imageBuffer = await getImageBuffer(eyecatch.url)
   const { base64 } = await getPlaiceholder(imageBuffer)
-  eyecatch.blurDataURL = base64
+  // eyecatch.blurDataURL = base64
 
   const allSlugs = await getAllSlugs()
   const [prevPost, nextPost] = prevNextPost(allSlugs, slug)

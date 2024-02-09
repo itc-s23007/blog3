@@ -1,5 +1,5 @@
 import parse from 'html-react-parser'
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 
 export default function ConvertBody ({ contentHTML }) {
   const contentReact = parse(contentHTML, {
