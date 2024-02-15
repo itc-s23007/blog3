@@ -14,7 +14,6 @@ import ConvertBody from 'components/convert-body'
 import PostCategories from 'components/post-categories'
 import Pagination from 'components/pagination'
 import Image from 'next/legacy/image'
-import { getImageBuffer } from 'lib/getImageBuffer'
 import { getPlaiceholder } from 'plaiceholder'
 
 import { eyecatchLocal } from 'lib/constants'
@@ -41,6 +40,7 @@ const Post = ({
       <PostHeader title={title} subtitle='Blog Article' publish={publish} />
       <figure>
         <Image
+          key={eyecatch.url}
           src={eyecatch.url}
           alt=''
           layout='responsive'
@@ -96,9 +96,9 @@ const getStaticProps = async context => {
   const description = extractText(post.content)
 
   const eyecatch = post.eyecatch ?? eyecatchLocal
-  const imageBuffer = await getImageBuffer(eyecatch.url)
-  const { base64 } = await getPlaiceholder(imageBuffer)
-  // eyecatch.blurDataURL = base64
+
+  const { base64 } = await getPlaiceholder(eyecatch.url)
+  eyecatch.blurDataURL = base64
 
   const allSlugs = await getAllSlugs()
   const [prevPost, nextPost] = prevNextPost(allSlugs, slug)
@@ -109,11 +109,10 @@ const getStaticProps = async context => {
       publish: post.publishDate,
       content: post.content,
       eyecatch: post.eyecatch,
-      eyecatch: eyecatch,
       categories: post.categories,
-      description: description,
-      prevPost: prevPost,
-      nextPost: nextPost
+      description,
+      prevPost,
+      nextPost
     }
   }
 }
