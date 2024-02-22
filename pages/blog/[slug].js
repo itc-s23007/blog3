@@ -17,7 +17,56 @@ import { getPlaiceholder } from 'plaiceholder'
 import { prevNextPost } from 'lib/prev-next-post'
 import Pagination from 'components/pagination'
 
-const Post = props => {}
+const Post = props => {
+  return (
+    <Container>
+      <Meta
+        pageTitle={props.title}
+        pageDesc={props.description}
+        pageImg={props.eyecatch.url}
+        pageImgW={props.eyecatch.width}
+        pageImgH={props.eyecatch.height}
+      />
+      <article>
+        <PostHeader
+          title={props.title}
+          subtitle='Blog Article'
+          publish={props.publish}
+        />
+        <figure>
+          <Image
+            key={props.eyecatch.url}
+            src={props.eyecatch.url}
+            alt=''
+            layout='responsive'
+            width={props.eyecatch.width}
+            height={props.eyecatch.height}
+            sizes='(min-width: 1152px) 1152px, 100vw'
+            priority
+            placeholder='blur'
+            blurDataURL={props.eyecatch.blurDataURL}
+          />
+        </figure>
+        <TwoColumn>
+          <TwoColumnMain>
+            <PostBody>
+              <ConvertBody contentHTML={props.content} />
+            </PostBody>
+          </TwoColumnMain>
+          <TwoColumnSidebar>
+            <PostCategories categories={props.categories} />
+          </TwoColumnSidebar>
+        </TwoColumn>
+        <Pagination
+          prevText={props.prevPost.title}
+          prevUrl={`/blog/${props.prevPost.slug}`}
+          nextText={props.nextPost.title}
+          nextUrl={`/blog/${props.nextPost.slug}`}
+        />
+      </article>
+    </Container>
+  )
+}
 export default Post
 
 export const getStaticPaths = async () => {
